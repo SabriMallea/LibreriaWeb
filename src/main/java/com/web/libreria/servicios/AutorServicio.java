@@ -48,7 +48,7 @@ public class AutorServicio {
         if (respuesta.isPresent()) {
             Autor autor = respuesta.get();
             autor.setAlta(false);
-            //autorRepositorio.deleteById(id);
+            autorRepositorio.deleteById(id);
         } else {
             throw new Exception("No se pudo dar de baja");
         }

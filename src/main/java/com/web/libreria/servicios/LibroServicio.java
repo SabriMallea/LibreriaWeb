@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -17,8 +16,8 @@ public class LibroServicio {
     //no hace falta inicializar esta variable
     @Autowired
     private LibroRepositorio libroRepositorio;
- 
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+
+    @Transactional
     public Libro guardar(Long isbn, String titulo, Integer anio, Autor autor, Editorial editorial) throws Exception {
 
         validar(isbn, titulo, anio, autor, editorial);
@@ -97,32 +96,36 @@ public class LibroServicio {
 
     public Libro buscarXIsbn(Long isbn) throws Exception {
         if (isbn == null) {
-            throw Exception("El isbn no puede ser nulo");
+            throw new Exception("El isbn no puede ser nulo");
         }
         Libro libro = libroRepositorio.buscarLibroPorIsbn(isbn);
         return libro;
     }
-    
-    public Libro buscarXTitulo(String titulo)throws Exception{
-      if (titulo == null || titulo.trim().isEmpty()) {
+
+    public Libro buscarXTitulo(String titulo) throws Exception {
+        if (titulo == null || titulo.trim().isEmpty()) {
             throw new Exception("El titulo del libro no puede ser nulo");
         }
-    Libro libro = libroRepositorio.buscarLibroXTitulo(titulo);
-    return libro;
+        Libro libro = libroRepositorio.buscarLibroXTitulo(titulo);
+        return libro;
     }
-    
-    public List<Libro> listaLibrosXAutor(String id){
-    List<Libro> listaLibrosXAutor = libroRepositorio.buscarLibroPorAutor(id);
-    return listaLibrosXAutor;
+
+    public List<Libro> listaLibrosXAutor(String id) {
+        List<Libro> listaLibrosXAutor = libroRepositorio.buscarLibroPorAutor(id);
+        return listaLibrosXAutor;
     }
-    
-    public List<Libro> listaLibrosXEditorial(String id){
-    List<Libro> listaLibrosXEditorial = libroRepositorio.buscarLibroPorEditorial(id);
-    return listaLibrosXEditorial;
+
+    public List<Libro> listaLibrosXEditorial(String id) {
+        List<Libro> listaLibrosXEditorial = libroRepositorio.buscarLibroPorEditorial(id);
+        return listaLibrosXEditorial;
     }
 
     public void validar(Long isbn, String titulo, Integer anio,
             Autor autor, Editorial editorial) throws Exception {
+
+        if (isbn == null || isbn.toString().isEmpty()) {
+            throw new Exception("El isbn no puede ser nulo");
+        }
 
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new Exception("El titulo del libro no puede ser nulo");
@@ -140,10 +143,6 @@ public class LibroServicio {
             throw new Exception("La editorial no puede ser nula");
         }
 
-    }
-
-    private Exception Exception(String el_isbn_no_puede_ser_nulo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
