@@ -39,8 +39,28 @@ public class AutorControlador {
     @GetMapping("/mostrarAutores")
     public String mostrarAutores(ModelMap modelo) {
         List<Autor> autores = autorServicio.listarAutores();
+        modelo.addAttribute("mensajeid", "ID");
+        modelo.addAttribute("mensajenombre", "Nombre");
+        modelo.addAttribute("mensajeeditar", "Editar");
         modelo.addAttribute("autor", autores);
         return "admAutores";
+    }
+
+    @PostMapping("/modificarAutor")
+    public String modificar(ModelMap modelo, @RequestParam String id,@RequestParam String nombre) throws Exception {
+        try {
+            autorServicio.modificar(id, nombre);
+            modelo.put("exito", "");
+        } catch (Exception e) {
+            modelo.put("error", "");
+        }
+        return "datosAutor";
+    }
+
+    @GetMapping("/modificarAutor")
+    public String modificar(ModelMap modelo) {
+        modelo.addAttribute("autores", autorServicio.listarAutores() );
+        return "datosAutor";
     }
 
 }

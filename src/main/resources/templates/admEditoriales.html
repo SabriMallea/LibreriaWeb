@@ -72,20 +72,20 @@
                   <label class="form-label">Editorial</label>
                   <input type="text" class="form-control" placeholder="Nombre" name="nombre">
                 </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-secondary">Guardar</button>
               </form>
         </article>
         
         <!--article-->
         <h4>Listado de editoriales</h4>
-        <a href="/admEditoriales/mostrarEditoriales" type="button" class="btn btn-outline-info">+</a>
+        <a href="/admEditoriales/mostrarEditoriales" type="button" class="btn btn-secondary">+</a>
         <article class="container-fluid">
             <table id="tabla" class="table" action="mostrarEditoriales" method="GET">
                 <thead class="table-dark">
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Editar</th>
+                    <th th:text="${mensajeid}">ID</th>
+                    <th scope="col" th:text="${mensajenombre}">Nombre</th>
+                    <th scope="col" th:text="${mensajeeditar}">Editar</th>
                   </tr>
                 </thead>
                 <tbody>

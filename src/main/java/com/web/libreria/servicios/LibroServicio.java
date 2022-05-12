@@ -20,7 +20,7 @@ public class LibroServicio {
     @Transactional
     public Libro guardar(Long isbn, String titulo, Integer anio, Autor autor, Editorial editorial) throws Exception {
 
-        validar(isbn, titulo, anio, autor, editorial);
+        validar(isbn, titulo, anio);
 
         Libro libro = new Libro();
         libro.setIsbn(isbn);
@@ -58,7 +58,7 @@ public class LibroServicio {
     @Transactional
     public void modificar(String id, Long isbn, String titulo, Integer anio,
             Autor autor, Editorial editorial) throws Exception {
-        validar(isbn, titulo, anio, autor, editorial);
+        validar(isbn, titulo, anio);
 
         Optional<Libro> respuesta = libroRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -120,8 +120,7 @@ public class LibroServicio {
         return listaLibrosXEditorial;
     }
 
-    public void validar(Long isbn, String titulo, Integer anio,
-            Autor autor, Editorial editorial) throws Exception {
+    public void validar(Long isbn, String titulo, Integer anio) throws Exception {
 
         if (isbn == null || isbn.toString().isEmpty()) {
             throw new Exception("El isbn no puede ser nulo");
@@ -133,14 +132,6 @@ public class LibroServicio {
 
         if (anio == null || anio < 1500) {
             throw new Exception("El año ingresado no es válido");
-        }
-
-        if (autor == null) {
-            throw new Exception("El autor no puede ser nulo");
-        }
-
-        if (editorial == null) {
-            throw new Exception("La editorial no puede ser nula");
         }
 
     }

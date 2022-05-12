@@ -28,7 +28,22 @@ public class LibroControlador {
     @Autowired
     private EditorialServicio editorialServicio;
 
-  @GetMapping("/guardarLibro")
+
+    @PostMapping("/guardarLibro")
+    public String guardarLibro(ModelMap modelo,@RequestParam Long isbn, @RequestParam String titulo,
+            @RequestParam Integer anio, @RequestParam (required=false) Autor autor, @RequestParam (required=false)Editorial editorial) throws Exception {
+        try {
+            libroServicio.guardar(isbn, titulo, anio, autor, editorial);
+            modelo.put("exito", "Libro ingresado con éxito!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            modelo.put("error", "No se ha podido guardar el libro");
+            System.out.println("HAY UN ERROR");
+        }
+        return "admLibros";
+    }
+
+      @GetMapping("/guardarLibro")
     public String guardarLibro(ModelMap modelo) {
       List<Autor> autores = autorServicio.listarAutores();
         modelo.addAttribute("autor", autores);
@@ -36,23 +51,14 @@ public class LibroControlador {
         modelo.addAttribute("editorial", editoriales);
         return "admLibros";
     }
-
-    @PostMapping("/guardarLibro")
-    public String guardarLibro(ModelMap modelo,@RequestParam Long isbn, @RequestParam String titulo,
-            @RequestParam Integer anio, @RequestParam(required = false) Autor autor, @RequestParam(required = false) Editorial editorial) throws Exception {
-        try {
-            libroServicio.guardar(isbn, titulo, anio, autor, editorial);
-            modelo.put("exito", "Autor ingresado con éxito!!");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            modelo.put("error", "No se ha podido guardar el autor");
-            System.out.println("HAY UN ERROR");
-        }
-        return "admLibros";
-    }
-
+    
     @GetMapping("/mostrarLibros")
     public String mostrarLibros(ModelMap modelo) {
+        modelo.addAttribute("mensajeid", "ID");
+        modelo.addAttribute("mensajeisbn", "ISBN");
+        modelo.addAttribute("mensajeTitulo", "Titulo");
+        modelo.addAttribute("mensajeAnio", "Año");
+        modelo.addAttribute("mensajeEditar", "Editar");
         List<Libro> libros = libroServicio.listarLibros();
         modelo.addAttribute("libro", libros);
         return "admLibros";

@@ -37,6 +37,9 @@ public class EditorialControlador {
 
     @GetMapping("/mostrarEditoriales")
     public String mostrarEditoriales(ModelMap modelo) {
+        modelo.addAttribute("mensajeid", "ID");
+        modelo.addAttribute("mensajenombre", "Nombre");
+        modelo.addAttribute("mensajeeditar", "Editar");
         List<Editorial> editoriales = editorialServicio.listarEditoriales();
         modelo.addAttribute("editorial", editoriales);
         return "admEditoriales";

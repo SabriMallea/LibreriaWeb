@@ -96,17 +96,19 @@
               </form>
         </article>
         <!--article-->
+        <div class="container-fluid">
         <h4>Listado de libros</h4>
-         <a href="/admLibros/mostrarLibros" type="button" class="btn btn-outline-info">+</a>
+         <a href="/admLibros/mostrarLibros" type="button" class="btn btn-secondary">Ver todos</a>
+         </div>
         <article class="container-fluid">
             <table id="tabla" class="table" action="mostrarLibros" method="GET">
                 <thead class="table-dark">
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">ISBN</th>
-                    <th scope="col">Título</th>
-                    <th scope="col">Año</th>
-                    <th scope="col">Editar</th>
+                    <th th:text="${mensajeid}">ID</th>
+                    <th scope="col" th:text="${mensajeisbn}">ISBN</th>
+                    <th scope="col" th:text="${mensajeTitulo}">Titulo</th>
+                    <th scope="col" th:text="${mensajeAnio}">Año</th>
+                    <th scope="col" th:text="${mensajeEditar}">Editar</th>
                   </tr>
                 </thead>
                 <tbody>
