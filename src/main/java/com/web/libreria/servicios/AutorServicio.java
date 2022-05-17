@@ -64,10 +64,22 @@ public class AutorServicio {
         Autor autor = autorRepositorio.buscarAutoresXNombre(nombre);
         return autor;
     }
+    
+    public Autor buscarAutorId(String id) throws Exception{
+        Optional<Autor> respuesta = autorRepositorio.findById(id);
+        if(respuesta.isPresent()){
+        Autor autor = respuesta.get();
+        return autor;
+        }else{
+            throw new Exception("No se pudo encontrar el autor");
+        }
+    }
 
     public void validar(String nombre) throws Exception {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new Exception("El nombre no puede ser nulo");
+        
+        
         }
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,32 +36,31 @@ public class AutorControlador {
         }
         return "admAutores";
     }
-
     @GetMapping("/mostrarAutores")
     public String mostrarAutores(ModelMap modelo) {
-        List<Autor> autores = autorServicio.listarAutores();
         modelo.addAttribute("mensajeid", "ID");
         modelo.addAttribute("mensajenombre", "Nombre");
         modelo.addAttribute("mensajeeditar", "Editar");
+        List<Autor> autores = autorServicio.listarAutores();
         modelo.addAttribute("autor", autores);
         return "admAutores";
     }
 
-    @PostMapping("/modificarAutor")
-    public String modificar(ModelMap modelo, @RequestParam String id,@RequestParam String nombre) throws Exception {
-        try {
-            autorServicio.modificar(id, nombre);
-            modelo.put("exito", "");
-        } catch (Exception e) {
-            modelo.put("error", "");
-        }
-        return "datosAutor";
-    }
-
-    @GetMapping("/modificarAutor")
-    public String modificar(ModelMap modelo) {
-        modelo.addAttribute("autores", autorServicio.listarAutores() );
-        return "datosAutor";
-    }
-
+//   @PostMapping("/modificarAutor/{id}")
+//    public String modificar(ModelMap modelo, @PathVariable String id, @RequestParam String nombre) throws Exception {
+//      try {
+//        autorServicio.modificar(id, nombre);
+//          //modelo.put("exito", "Los datos han sido actualizados");
+//        } catch (Exception e) {
+//            //modelo.put("error", "No se han podido actualizar los datos");
+//        }
+//        return "datosAutor";
+//    }
+//
+//    @GetMapping("/modificarAutor/{id}")
+//    public String modificar(ModelMap modelo, @PathVariable String id) throws Exception {
+//      Autor autor = autorServicio.buscarAutorId(id);
+//        modelo.addAttribute("autor", autor);
+//        return "datosAutor";
+//    }
 }

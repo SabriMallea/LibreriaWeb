@@ -43,16 +43,16 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Buscar editorial" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">🔍</button>
+                    <input class="form-control me-2" type="search" placeholder="Buscar autor" aria-label="Search">
+                    <button class="btn btn-outline-success" type="button">🔍</button>
                 </form>
             </div>
         </div>
     </nav>
     <!--main-->
     <main id="content" class="container-fluid">
-        <h2>Administración de editoriales</h2>
-         <div th:if="${exito}!=null" class="card text-white bg-success mb-3" >
+        <h2>Administración de autores</h2>
+            <!--<div th:if="${exito}!=null" class="card text-white bg-success mb-3" >
                 <div class="card-body">
                     <h5 class="card-title">Exito</h5>
                     <p class="card-text" th:text="${exito}"></p>
@@ -65,39 +65,17 @@
                 </div>
             </div>
         <!--section-->
-        <h4>Ingresar nueva editorial</h4>
+        <h4>Actualizar datos</h4>
         <article class="container-fluid">
-            <form action="guardarEditorial" method="POST">
+            <form th:action="@{modificarAutor/}+${autor.id}" method="POST">
+                <!--th:action="@{modificarAutor/}+${autor.id}" method="POST"-->
                 <div class="mb-3">
-                  <label class="form-label">Editorial</label>
+                  <label class="form-label" >Autor</label>
                   <input type="text" class="form-control" placeholder="Nombre" name="nombre">
                 </div>
-                <button type="submit" class="btn btn-secondary">Guardar</button>
+                <button type="submit" class="btn btn-secondary">Modificar</button>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
               </form>
-        </article>
-        
-        <!--article-->
-        <h4>Listado de editoriales</h4>
-        <a href="/admEditoriales/mostrarEditoriales" type="button" class="btn btn-secondary">Ver más</a>
-        <article class="container-fluid">
-            <table id="tabla" class="table" action="mostrarEditoriales" method="GET">
-                <thead class="table-dark">
-                  <tr>
-                    <th th:text="${mensajeid}">ID</th>
-                    <th scope="col" th:text="${mensajenombre}">Nombre</th>
-                    <th scope="col" th:text="${mensajeeditar}">Editar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="e: ${editorial}">
-                    <th scope="row"th:text="${e.getId()}"></th>
-                    <td th:text="${e.getNombre()}"></td>
-                    <td>
-                        <a href="#" class="btn btn-secondary">Editar</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
         </article>
     </main>
     <!--footer-->

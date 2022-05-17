@@ -11,6 +11,10 @@
     height: 32px;
 }
 
+#content {
+    margin-bottom: 500px;
+    
+}
 .footer {
     text-align: center;
 }
